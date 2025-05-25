@@ -1,19 +1,13 @@
-const express = require ('express')
-const app = express()
+const express = require ('express');
+const user = require ('./routers/user');
+const student = require ('./routers/student');
 
-const posts = [
-    {
-        username: 'Senadeera',
-        title: 'Post 1'
-    },
-    {
-        username: 'Kithmina',
-        title: 'Post 2'
-    }
-]
+const app = express();
 
-app.get('/posts', (req, res) => {
-    res.json(posts)
-})
+app.use(express.json());
 
-app.listen(3000)
+app.use('/api/user', user);
+app.use('/api/student',student);
+
+const port = process.env.PORT || 3000;
+app.listen(port, ()=> console.log(`App is running on port ${port}`));
